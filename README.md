@@ -10,10 +10,10 @@ Payment link for crypto-currencies
 * extra - payment extra
 * gas - ethereum suggested gas
 * data - ethereum bytecode
-* # - payment address; after hash
+* C&#35; - payment address; after hash
 
 ## example
 
 ```
-https://link.btc.horse/?pay=ltc&amount=3&message=donation#39QpeVBF8gep7nfYbt9u1DrqKR8dAM31CT
+https://link.btc.horse/?pay=btc&amount=3&message=donation#39QpeVBF8gep7nfYbt9u1DrqKR8dAM31CT
 ```
