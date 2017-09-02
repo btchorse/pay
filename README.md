@@ -10,7 +10,7 @@ Payment link for crypto-currencies
 * extra - payment extra
 * gas - ethereum suggested gas
 * data - ethereum bytecode
-* C&#35; - payment address; after hash
+* &#35; - payment address; after hash
 
 ## example
 
