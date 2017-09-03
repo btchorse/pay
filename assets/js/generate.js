@@ -32,8 +32,8 @@ switch(pay) {
 		});
 		break;
 	default: // btc
-		name = 'bitcoin'; symbol = '฿';
-		link = jsonToQueryString('bitecoin',address,{
+		name = 'bitcoin'; symbol = '₿';
+		link = jsonToQueryString('bitcoin',address,{
 			'amount': amount,
 			'message': message,
 			'label': label,
@@ -69,6 +69,15 @@ document.getElementsByTagName('head')[0].appendChild(meta2);
 
 document.getElementById('paylink').href = link;
 document.getElementById('paytype').innerHTML = name + ' payment';
-if (amount != null) {
+if (amount != null)
 	document.getElementById('amount').innerHTML = amount + ' ' + symbol;
-}
+if (address != null)
+	document.getElementById('address').innerHTML = address.match(/.{1,4}/g).join(' ');
+	document.getElementById('inputAddress').value = address;
+
+var copyAddress = document.getElementById('address');
+copyAddress.addEventListener('click', function () {
+	var addressField = document.getElementById('inputAddress');
+	addressField.select();
+	document.execCommand('copy');
+}, false);

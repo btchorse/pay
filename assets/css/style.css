@@ -6,12 +6,19 @@ body {
 a,
 a:hover {
 	color: #0088cc;
+	text-decoration: none;
 }
 a:focus {
 	text-decoration: none;
 }
 a:hover {
-	text-decoration: underline;
+	text-decoration: none;
+}
+
+#inputAddress {
+	position: absolute;
+	top: -99999px;
+	left: -99999px;
 }
 
 header {
@@ -44,6 +51,17 @@ section h3 {
 	font-size: 1.6em;
 }
 
+div.wrapAddress {
+	margin-top: 10px;
+}
+
+a#address {
+	color: #0080ff;
+	font-size: 1.4em;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+
 a#paylink {
 	font-size: 14px;
 	font-weight: bold;
@@ -55,5 +73,4 @@ a#paylink {
 	display: inline-block;
 	padding: 15px 27px 13px;
 	text-transform: uppercase;
-	text-decoration: none;
 }
