@@ -1,5 +1,5 @@
 # Payment link
-Minimalistic Payment link for crypto currencies privided directly from Github.
+Minimalistic Payment link for crypto currencies provided directly from Github.
 
 ## link structure
 
