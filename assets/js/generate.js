@@ -1,13 +1,13 @@
 var urlParams = new URLSearchParams(document.location.search.substring(1));
-var address = document.location.hash.substring(1); // Payment address - parsed after hash sign #
-var pay = urlParams.get('pay'); // Type of digital currency; short value (default: btc)
+var destination = document.location.hash.substring(1).split('@'); // Payment address - parsed after hash sign #; type after @
+var address = destination[0];
+var pay = destination[1];
 var amount = urlParams.get('amount'); // Amount to pay in crypto or fiat
 var message = urlParams.get('message'); // Payment message
 var label = urlParams.get('label'); // Payment label
 var extra = urlParams.get('extra'); // Payment extra
 var gas = urlParams.get('gas'); // Ethereum suggested gas
 var data = urlParams.get('data'); // Ethereum bytecode
-//var fiat = urlParams.get('fiat'); // Calculate value from FIAT currency
 
 var name = null;
 var symbol = null;
