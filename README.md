@@ -14,5 +14,5 @@ Minimalistic Payment link for crypto currencies provided directly from Github.
 ## example
 
 ```
-https://link.btc.horse/?amount=3&message=donation#39QpeVBF8gep7nfYbt9u1DrqKR8dAM31CT@btc
+https://link.btc.horse/?amount=3&message=donation#14DeLSyGYNSLpxDwSKBXhrwZPX7GCX2GD7@btc
 ```
