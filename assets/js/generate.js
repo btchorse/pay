@@ -1,50 +1,56 @@
-var urlParams = new URLSearchParams(document.location.search.substring(1));
-var destination = document.location.hash.substring(1).split('@'); // Payment address - parsed after hash sign #; type after @
-var address = destination[0];
-var pay = destination[1];
-var amount = urlParams.get('amount'); // Amount to pay in crypto or fiat
-var message = urlParams.get('message'); // Payment message
-var label = urlParams.get('label'); // Payment label
-var extra = urlParams.get('extra'); // Payment extra
-var gas = urlParams.get('gas'); // Ethereum suggested gas
-var data = urlParams.get('data'); // Ethereum bytecode
+const payto = location.hash.substr(1);
+const url = new URL(payto);
 
-var name = null;
-var symbol = null;
-var link = null;
+const protocol = url.protocol.substr(1);
+const params = url.searchParams;
 
-switch(pay) {
-	case 'ltc':
-		name = 'litecoin'; symbol = 'Ł';
-		link = jsonToQueryString('litecoin',address,{
-			'amount': amount,
-			'message': message,
-			'label': label,
-			'extra': extra
-		});
+switch(protocol) {
+	case 'bitcoin':
+		const name = 'bitcoin';
+		const currency = '₿';
+		const address = url.hostname;
+		const amount = parseFloat(params.get('amount'));
+		const label = decodeURI(params.get('label'));
+		const message = decodeURI(params.get('message'));
 		break;
-	case 'eth':
-		name = 'ethereum'; symbol = 'Ξ';
-		link = jsonToQueryString('ethereum',address,{
-			'value': amount,
-			'gas': gas,
-			'data': data
-		});
+	case 'litecoin':
+		const name = 'litecoin';
+		const currency = 'Ł';
+		const address = url.hostname;
+		const amount = parseFloat(params.get('amount'));
+		const label = decodeURI(params.get('label'));
+		const message = decodeURI(params.get('message'));
 		break;
-	default: // btc
-		name = 'bitcoin'; symbol = '₿';
-		link = jsonToQueryString('bitcoin',address,{
-			'amount': amount,
-			'message': message,
-			'label': label,
-			'extra': extra
-		});
+	case 'ethereum':
+		const name = 'ethereum';
+		const currency = 'Ξ';
+		const address = url.hostname;
+		const amount = parseFloat(params.get('value'));
+		const label = '';
+		const message = decodeURI(params.get('data'));
+		break;
+	case 'payto':
+		const path = url.pathname.split('/');
+		const pay = decodeURI(params.get('amount')).split(':');
+		const currency = pay[0];
+		const amount = parseFloat(pay[1]);
+		const label = decodeURI(params.get('label'));
+		const message = decodeURI(params.get('message'));
+		break;
+	default:
+		const name = '';
+		const currency = '';
+		const address = '';
+		const amount = 0;
+		const label = '';
+		const message = '';
+		alert('No payment found!');
 		break;
 }
 
 function jsonToQueryString(protocol,address,json) {
 	Object.keys(json).forEach((key) => (json[key] == null) && delete json[key]);
-	return protocol + ':' + address + ((Object.keys(json).length>0) ? '?' : '') + 
+	return protocol + ':' + address + ((Object.keys(json).length>0) ? '?' : '') +
 		Object.keys(json).map(function(key) {
 			return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
 		}).join('&');
@@ -67,10 +73,10 @@ meta2.setAttribute('property', 'twitter:image');
 meta2.setAttribute('content', qrimage);
 document.getElementsByTagName('head')[0].appendChild(meta2);
 
-document.getElementById('paylink').href = link;
+document.getElementById('paylink').href = payto;
 document.getElementById('paytype').innerHTML = name + ' payment';
 if (amount != null)
-	document.getElementById('amount').innerHTML = amount + ' ' + symbol;
+	document.getElementById('amount').innerHTML = amount + ' ' + currency;
 if (address != null)
 	document.getElementById('address').innerHTML = address.match(/.{1,4}/g).join(' ');
 	document.getElementById('inputAddress').value = address;
