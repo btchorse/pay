@@ -17,38 +17,46 @@ Minimalistic Payment link for crypto currencies provided directly from Github.
 <dl>
   <dt>bitcoin</dt>
   <dd>
-    `address`
-    - amount
-    - label
-    - message
+    <kbd>address</kbd>
+    <ul>
+      <li>amount</li>
+      <li>label</li>
+      <li>message</li>
+    </ul>
   </dd>
 </dl>
 <dl>
   <dt>litecoin</dt>
   <dd>
-    `address`
-    - amount
-    - label
-    - message
+    <kbd>address</kbd>
+    <ul>
+      <li>amount</li>
+      <li>label</li>
+      <li>message</li>
+    </ul>
   </dd>
 </dl>
 <dl>
   <dt>ethereum</dt>
   <dd>
-    `address`
-    - value
-    - gas
-    - data
+    <kbd>address</kbd>
+    <ul>
+      <li>value</li>
+      <li>gas</li>
+      <li>data</li>
+    </ul>
   </dd>
 </dl>
 <dl>
   <dt>payto</dt>
   <dd>
-    `type/address`
-    - amount (currency:unit)
-    - label
-    - message
-    - fee
+    <kbd>type/address</kbd>
+    <ul>
+      <li>amount (currency:unit)</li>
+      <li>label</li>
+      <li>message</li>
+      <li>fee</li>
+    </ul>
   </dd>
 </dl>
 
