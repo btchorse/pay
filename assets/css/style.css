@@ -17,13 +17,17 @@ a:hover {
 
 #inputAddress {
 	position: absolute;
-	top: -99999px;
-	left: -99999px;
+	top: 999999999px
+}
+#inputAmount {
+	position: absolute;
+	top: 999999999px
 }
 
 header {
-	padding: 14px 16px;
+	padding: 1em;
 	border-bottom: 4px #0080ff solid;
+	text-align: center;
 }
 
 header > img {
@@ -32,6 +36,13 @@ header > img {
 
 header h1 {
 	display: inline-block;
+}
+
+footer {
+	margin-top: 3em;
+	padding: 1em;
+	border-top: 2px #0080ff solid;
+	text-align: center;
 }
 
 section {
@@ -60,17 +71,33 @@ a#address {
 	font-size: 1.4em;
 	text-transform: uppercase;
 	font-weight: normal;
+	cursor: copy;
+}
+
+a#amount {
+	cursor: copy;
 }
 
 a#paylink {
 	font-size: 14px;
 	font-weight: bold;
 	line-height: 100%;
-	color: #FFF;
+	color: #fff;
 	background: #0080ff;
-	border-radius: 22px;
+	border-radius: 3px;
 	overflow: hidden;
 	display: inline-block;
 	padding: 15px 27px 13px;
 	text-transform: uppercase;
+}
+
+kbd {
+	padding: 5px;
+	margin: 2px;
+	background: #d9ffe2;
+	border: 1px #a6caae solid;
+	border-radius: 3px;
+}
+.uriWarning {
+	margin-top: 4px;
 }

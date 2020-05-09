@@ -1,89 +1,115 @@
-const payto = location.hash.substr(1);
-const url = new URL(payto);
+(function(){
+	const payto = location.hash.substr(1);
+	if (!payto === true) {
+		alert('No payment link found!');
+		return;
+	}
+	const url = new URL(payto);
+	const protocol = url.protocol.slice(0, -1);
+	const params = url.searchParams;
 
-const protocol = url.protocol.substr(1);
-const params = url.searchParams;
+	switch(protocol) {
+		case 'bitcoin':
+			var name = 'bitcoin';
+			var currency = '₿';
+			var address = url.pathname;
+			var amount = parseFloat(params.get('amount'));
+			var label = decodeURI(params.get('label'));
+			var message = decodeURI(params.get('message'));
+			break;
+		case 'litecoin':
+			var name = 'litecoin';
+			var currency = 'Ł';
+			var address = url.pathname;
+			var amount = parseFloat(params.get('amount'));
+			var label = decodeURI(params.get('label'));
+			var message = decodeURI(params.get('message'));
+			break;
+		case 'ethereum':
+			var name = 'ethereum';
+			var currency = 'Ξ';
+			var address = url.pathname;
+			var amount = parseFloat(params.get('value'));
+			var label = '';
+			var message = decodeURI(params.get('data'));
+			break;
+		case 'payto':
+			var path = url.pathname.substr(2).split('/');
+			var name = path[0].toUpperCase();
+			var address = path[1];
+			var pay = decodeURI(params.get('amount')).split(':');
+			var currency = pay[0];
+			var amount = parseFloat(pay[1]);
+			var label = decodeURI(params.get('label'));
+			var message = decodeURI(params.get('message'));
+			break;
+		default:
+			var name = '';
+			var currency = '';
+			var address = '';
+			var amount = 0;
+			var label = '';
+			var message = '';
+			alert('No payment found!');
+			break;
+	}
 
-switch(protocol) {
-	case 'bitcoin':
-		let name = 'bitcoin';
-		let currency = '₿';
-		let address = url.hostname;
-		let amount = parseFloat(params.get('amount'));
-		let label = decodeURI(params.get('label'));
-		let message = decodeURI(params.get('message'));
-		break;
-	case 'litecoin':
-		let name = 'litecoin';
-		let currency = 'Ł';
-		let address = url.hostname;
-		let amount = parseFloat(params.get('amount'));
-		let label = decodeURI(params.get('label'));
-		let message = decodeURI(params.get('message'));
-		break;
-	case 'ethereum':
-		let name = 'ethereum';
-		let currency = 'Ξ';
-		let address = url.hostname;
-		let amount = parseFloat(params.get('value'));
-		let label = '';
-		let message = decodeURI(params.get('data'));
-		break;
-	case 'payto':
-		let path = url.pathname.split('/');
-		let pay = decodeURI(params.get('amount')).split(':');
-		let currency = pay[0];
-		let amount = parseFloat(pay[1]);
-		let label = decodeURI(params.get('label'));
-		let message = decodeURI(params.get('message'));
-		break;
-	default:
-		let name = '';
-		let currency = '';
-		let address = '';
-		let amount = 0;
-		let label = '';
-		let message = '';
-		alert('No payment found!');
-		break;
-}
+	let qr = new QRious({
+		element: document.getElementById('qr'),
+		size: 200,
+		backgroundAlpha: 0,
+		value: payto
+	});
 
-function jsonToQueryString(protocol,address,json) {
-	Object.keys(json).forEach((key) => (json[key] == null) && delete json[key]);
-	return protocol + ':' + address + ((Object.keys(json).length>0) ? '?' : '') +
-		Object.keys(json).map(function(key) {
-			return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
-		}).join('&');
-}
+	let qrimage = qr.toDataURL('image/jpeg');
+	let meta1 = document.createElement('meta');
+	meta1.setAttribute('property', 'og:image');;
+	meta1.setAttribute('content', qrimage);
+	document.getElementsByTagName('head')[0].appendChild(meta1);
+	let meta2 = document.createElement('meta');
+	meta2.setAttribute('property', 'twitter:image');
+	meta2.setAttribute('content', qrimage);
+	document.getElementsByTagName('head')[0].appendChild(meta2);
 
-var qr = new QRious({
-	element: document.getElementById('qr'),
-	size: 200,
-	backgroundAlpha: 0,
-	value: link
-});
+	document.getElementById('paylink').href = payto;
+	document.getElementById('paytype').innerHTML = name + ' payment';
 
-let qrimage = qr.toDataURL('image/jpeg');
-let meta1 = document.createElement('meta');
-meta1.setAttribute('property', 'og:image');;
-meta1.setAttribute('content', qrimage);
-document.getElementsByTagName('head')[0].appendChild(meta1);
-let meta2 = document.createElement('meta');
-meta2.setAttribute('property', 'twitter:image');
-meta2.setAttribute('content', qrimage);
-document.getElementsByTagName('head')[0].appendChild(meta2);
+	var language;
+	if (window.navigator.languages) {
+		language = window.navigator.languages[0];
+	} else {
+		language = window.navigator.userLanguage || window.navigator.language;
+	}
 
-document.getElementById('paylink').href = payto;
-document.getElementById('paytype').innerHTML = name + ' payment';
-if (amount != null)
-	document.getElementById('amount').innerHTML = amount + ' ' + currency;
-if (address != null)
-	document.getElementById('address').innerHTML = address.match(/.{1,4}/g).join(' ');
-	document.getElementById('inputAddress').value = address;
+	if (!amount.isNaN && !currency.isNaN) {
+		document.getElementById('inputAmount').value = amount;
+		var amountTxt = new Intl.NumberFormat(language, {
+		  style: 'currency',
+		  currency: currency,
+		}).format(amount);
+		document.getElementById('amount').innerHTML = amountTxt;
+	} else if (!amount.isNaN) {
+		document.getElementById('inputAmount').value = amount;
+		var amountTxt = new Intl.NumberFormat(language, {
+		  style: 'currency',
+		}).format(amount);
+		document.getElementById('amount').innerHTML = amountTxt;
+	}
 
-let copyAddress = document.getElementById('address');
-copyAddress.addEventListener('click', function () {
-	let addressField = document.getElementById('inputAddress');
-	addressField.select();
-	document.execCommand('copy');
-}, false);
+	if (!address === false)
+		document.getElementById('address').innerHTML = address.match(/.{1,4}/g).join(' ');
+		document.getElementById('inputAddress').value = address;
+
+	let copyAddress = document.getElementById('address');
+	copyAddress.addEventListener('click', function () {
+		let addressField = document.getElementById('inputAddress');
+		addressField.select();
+		document.execCommand('copy');
+	}, false);
+	let copyAmount = document.getElementById('amount');
+	copyAmount.addEventListener('click', function () {
+		let amountField = document.getElementById('inputAmount');
+		amountField.select();
+		document.execCommand('copy');
+	}, false);
+})();

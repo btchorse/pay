@@ -27,16 +27,31 @@
 			<canvas id="qr"></canvas>
 		</div>
 		<div class="wrapAddress">
-			<a href="#" id="address"></a>
+			<a id="address"></a>
 			<input type="text" id="inputAddress" value="">
 		</div>
 		<div class="wrapAmount">
-			<h3 id="amount"></h3>
+			<h3>
+				<a id="amount"></a>
+				<input type="text" id="inputAmount" value="">
+			</h3>
 		</div>
 		<div class="wrapPaylink">
-			<a href="#" id="paylink">Pay from wallet</a>
+			<a id="paylink">Pay from wallet</a>
 		</div>
 	</section>
+
+	<footer>
+		<div>
+			<strong>Security notice</strong>
+		</div>
+		<div>
+			Make sure your URL starts with:
+		</div>
+		<div class="uriWarning">
+			<kbd>🔒 https://pay.btc.horse</kbd>
+		</div>
+	</footer>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js" integrity="sha256-25ncr0CpJhgbzkUiR3wu/Fkk9sSykRG2qX+upHfJUos=" crossorigin="anonymous"></script>
 	<script src="assets/js/generate.js"></script>
