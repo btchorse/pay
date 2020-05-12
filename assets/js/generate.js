@@ -50,7 +50,7 @@
 			var amount = 0;
 			var label = '';
 			var message = '';
-			alert('No payment found!');
+			alert('No payment instruction found!');
 			break;
 	}
 
@@ -74,11 +74,11 @@
 	document.getElementById('paylink').href = payto;
 	document.getElementById('paytype').innerHTML = name + ' payment';
 
-	if (!amount.isNaN && !currency.isNaN) {
+	if (amount && currency) {
 		document.getElementById('inputAmount').value = amount;
 		var amountTxt = currency + ' ' + amount.toLocaleString(undefined, { minimumFractionDigits: 2 });
 		document.getElementById('amount').innerHTML = amountTxt;
-	} else if (!amount.isNaN) {
+	} else if (amount) {
 		document.getElementById('inputAmount').value = amount;
 		var amountTxt = amount.toLocaleString(undefined, { minimumFractionDigits: 2 });
 		document.getElementById('amount').innerHTML = amountTxt;
