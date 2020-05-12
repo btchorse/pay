@@ -74,25 +74,13 @@
 	document.getElementById('paylink').href = payto;
 	document.getElementById('paytype').innerHTML = name + ' payment';
 
-	var language;
-	if (window.navigator.languages) {
-		language = window.navigator.languages[0];
-	} else {
-		language = window.navigator.userLanguage || window.navigator.language;
-	}
-
 	if (!amount.isNaN && !currency.isNaN) {
 		document.getElementById('inputAmount').value = amount;
-		var amountTxt = new Intl.NumberFormat(language, {
-		  style: 'currency',
-		  currency: currency,
-		}).format(amount);
+		var amountTxt = currency + ' ' + amount.toLocaleString(undefined, { style: 'currency', minimumFractionDigits: 2 });
 		document.getElementById('amount').innerHTML = amountTxt;
 	} else if (!amount.isNaN) {
 		document.getElementById('inputAmount').value = amount;
-		var amountTxt = new Intl.NumberFormat(language, {
-		  style: 'currency',
-		}).format(amount);
+		var amountTxt = amount.toLocaleString(undefined, { style: 'currency', minimumFractionDigits: 2 });
 		document.getElementById('amount').innerHTML = amountTxt;
 	}
 
