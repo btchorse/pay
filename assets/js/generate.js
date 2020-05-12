@@ -76,11 +76,11 @@
 
 	if (!amount.isNaN && !currency.isNaN) {
 		document.getElementById('inputAmount').value = amount;
-		var amountTxt = currency + ' ' + amount.toLocaleString(undefined, { style: 'currency', minimumFractionDigits: 2 });
+		var amountTxt = currency + ' ' + amount.toLocaleString(undefined, { minimumFractionDigits: 2 });
 		document.getElementById('amount').innerHTML = amountTxt;
 	} else if (!amount.isNaN) {
 		document.getElementById('inputAmount').value = amount;
-		var amountTxt = amount.toLocaleString(undefined, { style: 'currency', minimumFractionDigits: 2 });
+		var amountTxt = amount.toLocaleString(undefined, { minimumFractionDigits: 2 });
 		document.getElementById('amount').innerHTML = amountTxt;
 	}
 
