@@ -67,6 +67,13 @@ Minimalistic Payment link for crypto currencies provided directly from Github.
 - `https://pay.btc.horse#ethereum:<address>[?value=<value>][?gas=<suggestedGas>][?data=<bytecode>]`
 - `https://pay.btc.horse#payto://<type>/<address>[?amount=<currency:unit>][?label=<label>][?message=<message>][?fee=<suggestedFee>]`
 
+## Alternative domain at GitHub
+
+- `https://btchorse.github.io/pay#bitcoin:<address>[?amount=<amount>][?label=<label>][?message=<message>]`
+- `https://btchorse.github.io/pay#litecoin:<address>[?amount=<amount>][?label=<label>][?message=<message>]`
+- `https://btchorse.github.io/pay#ethereum:<address>[?value=<value>][?gas=<suggestedGas>][?data=<bytecode>]`
+- `https://btchorse.github.io/pay#payto://<type>/<address>[?amount=<currency:unit>][?label=<label>][?message=<message>][?fee=<suggestedFee>]`
+
 ## License
 
 Licensed under [MIT](LICENSE)
